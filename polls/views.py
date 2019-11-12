@@ -14,16 +14,12 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """Return the last five published questions."""
         return Question.objects.filter(
-            pub_date__lte=timezone.now(),
+            pub_date__lte=timezone.now()
         ).order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
-    def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
-        return Question.objects.filter(pub_date__lte=timezone.now())
+
     model = Question
     template_name = 'polls/detail.html'
 
@@ -31,12 +27,6 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
-
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:5]
 
 
 def vote(request, question_id):
