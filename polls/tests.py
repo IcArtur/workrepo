@@ -96,3 +96,11 @@ class QuestionModelTest(TestCase):
         time = timezone.now() - timezone.timedelta(hours=23, minutes= 59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
+
+
+class QuestionHasChoice(TestCase):
+    def test_question_with_no_choice(self):
+        """
+            question with no choices has to not be visible
+        """
+        create_question(question_text="No choice", days=-1)
