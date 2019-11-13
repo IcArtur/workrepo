@@ -13,10 +13,9 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.filter(
-            pub_date__lte=timezone.now(), choice__isnull=False
-        ).order_by('-pub_date')[:5]
-
+        all1 = Question.objects.filter(choice__isnull=False)
+        all2 = all1.filter(pub_date__lte=timezone.now()).distinct()
+        return all2.order_by('-pub_date')[:5]
 
 class DetailView(generic.DetailView):
 
