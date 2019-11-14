@@ -5,6 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from .models import Question, Choice
+from .views import vote
 
 
 def create_question(question_text, days, id1):
