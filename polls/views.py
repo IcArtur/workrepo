@@ -54,5 +54,6 @@ class QuestionView(generics.ListAPIView):
     """
     Returns a list of all Questions.
     """
+    queryset = Question.objects.all()
     model = Question
     serializer_class = QuestionSerializer
