@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from rest_framework import generics
 
-from .serializers import QuestionSerializer
+from .serializers import QuestionSerializer, ChoiceSerializer
 from .models import Choice, Question
 
 
@@ -55,5 +55,14 @@ class QuestionView(generics.ListAPIView):
     Returns a list of all Questions.
     """
     queryset = Question.objects.all()
+    model = Question
+    serializer_class = QuestionSerializer
+
+
+class QuestionInstanceView(generics.RetrieveAPIView):
+    """
+    Returns a single author.
+    Also allows updating and deleting
+    """
     model = Question
     serializer_class = QuestionSerializer
