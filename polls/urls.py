@@ -10,6 +10,6 @@ urlpatterns = [
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
-    url(r'questlist/$', views.QuestionView.as_view(), name='question-list'),
-    url(r'questlist/<int:pk>/$', views.QuestionInstanceView.as_view(), name='question-instance'),
+    url('questlist/$', views.QuestionView.as_view(), name='question-list'),
+    url('questlist/(?P<pk>[\d]+)/$', views.QuestionInstanceView.as_view(), name='question-instance'),
 ]

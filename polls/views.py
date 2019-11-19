@@ -64,5 +64,6 @@ class QuestionInstanceView(generics.RetrieveAPIView):
     Returns a single author.
     Also allows updating and deleting
     """
+    queryset = Question.objects.all()
     model = Question
     serializer_class = QuestionSerializer
