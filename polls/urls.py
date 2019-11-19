@@ -1,6 +1,5 @@
 from django.urls import path
-from django.conf.urls import  url
-from rest_framework.urlpatterns import format_suffix_patterns
+from django.conf.urls import re_path
 
 from . import views
 
@@ -10,6 +9,6 @@ urlpatterns = [
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
-    url('questlist/$', views.QuestionView.as_view(), name='question-list'),
-    url('questlist/(?P<pk>[\d]+)/$', views.QuestionInstanceView.as_view(), name='question-instance'),
+    re_path('questlist/$', views.QuestionView.as_view(), name='question-list'),
+    re_path('questlist/(?P<pk>[\d]+)/$', views.QuestionInstanceView.as_view(), name='question-instance'),
 ]
