@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.template import loader
 from rest_framework import generics
 
 from .serializers import QuestionSerializer, ChoiceSerializer
@@ -51,19 +52,20 @@ def vote(request, question_id):
 
 
 class QuestionView(generics.ListAPIView):
-    """
-    Returns a list of all Questions.
-    """
+
+    template = loader.get_template('polls/questlist.html')
+    response = {
+        'questions': Question.objects.all(),
+    }
     queryset = Question.objects.all()
     model = Question
     serializer_class = QuestionSerializer
 
 
 class QuestionInstanceView(generics.RetrieveAPIView):
-    """
-    Returns a single author.
-    Also allows updating and deleting
-    """
+
     queryset = Question.objects.all()
     model = Question
     serializer_class = QuestionSerializer
+
+
