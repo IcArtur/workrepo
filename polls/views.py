@@ -3,7 +3,9 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from rest_framework import generics
 
+from .serializers import QuestionSerializer
 from .models import Choice, Question
 
 
@@ -16,6 +18,7 @@ class IndexView(generic.ListView):
         all1 = Question.objects.filter(choice__isnull=False)
         all2 = all1.filter(pub_date__lte=timezone.now()).distinct()
         return all2.order_by('-pub_date')[:5]
+
 
 class DetailView(generic.DetailView):
 
@@ -46,3 +49,10 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
+
+class QuestionView(generics.ListAPIView):
+    """
+    Returns a list of all Questions.
+    """
+    model = Question
+    serializer_class = QuestionSerializer
