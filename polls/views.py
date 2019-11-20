@@ -52,7 +52,6 @@ def vote(request, question_id):
 
 
 class QuestionView(generics.ListAPIView):
-
     template = loader.get_template('polls/questlist.html')
     response = {
         'questions': Question.objects.all(),
@@ -63,7 +62,7 @@ class QuestionView(generics.ListAPIView):
 
 
 class QuestionInstanceView(generics.RetrieveAPIView):
-
+    template = loader.get_template('polls/questlist.html')
     queryset = Question.objects.all()
     model = Question
     serializer_class = QuestionSerializer
