@@ -13,6 +13,7 @@ from .models import Choice, Question
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
+    serializer_class = QuestionSerializer
 
     def get_queryset(self):
         """Return the last five published questions."""
@@ -52,7 +53,6 @@ def vote(request, question_id):
 
 
 class QuestionView(generics.ListAPIView):
-    template = loader.get_template('polls/questlist.html')
     response = {
         'questions': Question.objects.all(),
     }
@@ -62,7 +62,6 @@ class QuestionView(generics.ListAPIView):
 
 
 class QuestionInstanceView(generics.RetrieveAPIView):
-    template = loader.get_template('polls/questlist.html')
     queryset = Question.objects.all()
     model = Question
     serializer_class = QuestionSerializer
