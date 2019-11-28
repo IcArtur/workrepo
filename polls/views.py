@@ -13,7 +13,6 @@ from .models import Choice, Question
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
-    serializer_class = QuestionSerializer
 
     def get_queryset(self):
         """Return the last five published questions."""
@@ -46,9 +45,6 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
